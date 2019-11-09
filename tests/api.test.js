@@ -6,6 +6,7 @@ const db = new sqlite3.Database(':memory:');
 
 const app = require('../src/app')(db);
 const buildSchemas = require('../src/schemas');
+const assert = require('assert') ;
 
 describe('API tests', () => {
         before(done => {
@@ -15,23 +16,24 @@ describe('API tests', () => {
                         }
 
                         buildSchemas(db);
+                        for(i = 0; i < 10; i++) {
                         request(app).post('/rides')
                         .send({
-                            start_lat: 10,
-                            start_long: 100,
-                            end_lat: 20,
-                            end_long: 120,
-                            rider_name: "RN-01",
-                            driver_name: "DN-01",
-                            driver_vehicle: "DV-01"
+                            start_lat: 10+i,
+                            start_long: 100+i,
+                            end_lat: 20+i,
+                            end_long: 120+i,
+                            rider_name: "RN-" + i,
+                            driver_name: "DN-" +i,
+                            driver_vehicle: "DV-" + i
                         })
                         .expect('Content-Type', /json/)
                         .expect(200)
                         .end(function (err, res) {
-                            location1 = res.body;
+//                            console.log(res.body)
                         });
-                                
-                        done();
+                        }
+                        done() ;
                 });
         });
         describe('GET /help', () => {
@@ -60,12 +62,28 @@ describe('API tests', () => {
                                 .expect(200, done);
                 });
         });
+        describe('GET /rides from 3rd to 6', () => {
+                it('should return 3rd record', done => {
+                        request(app)
+                                .get('/rides')
+                                .query({start_pos: 3, max_limit: 4})
+                                .expect('Content-Type', 'application/json; charset=utf-8')
+                                .expect(200)
+                                .end(function (err, res) {
+                                        var obj = res.body ;
+                                        if(obj.length != 4)
+                                                done({"Expected 4 but got ":obj.length}) ;
+                                        else    done() ;
+                                    });
+//                                done();
+                });
+        });
         describe('GET /rides/1', () => {
-                it('should return rider with id = 1', done => {
+                it('should return ride with id = 1', done => {
                         request(app)
                                 .get('/rides/1')
                                 .expect('Content-Type', 'application/json; charset=utf-8')
-                                .expect(200, done);
+                                .expect(200, done)
                 });
         });
 

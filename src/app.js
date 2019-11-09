@@ -1,4 +1,5 @@
 const express = require('express');
+const request = require('supertest');
 
 const app = express();
 
@@ -7,6 +8,26 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
 module.exports = db => {
+        app.use('/test', (req, res) => {
+                for(let i = 0; i < 10; i++) {
+                        request(app).post('/rides')
+                        .send({
+                            start_lat: 10+i,
+                            start_long: 100+i,
+                            end_lat: 20+i,
+                            end_long: 120+i,
+                            rider_name: "RN-" + i,
+                            driver_name: "DN-" +i,
+                            driver_vehicle: "DV-" + i
+                        })
+                        .expect('Content-Type', /json/)
+                        .expect(200)
+                        .end(function (err, res) {
+                            console.log(res.body)
+                        });
+                        }
+
+        }) ;
         app.use('/help', express.static('docs2html/index.html'));
         app.get('/health', (req, res) => res.send('Healthy'));
 
@@ -92,7 +113,13 @@ module.exports = db => {
         });
 
         app.get('/rides', (req, res) => {
-                db.all('SELECT * FROM Rides', function(err, rows) {
+                let start_pos = 0 ;
+                let max_limit = 500 ;
+                if ( req.query.start_pos !== undefined )
+                        start_pos = Number(req.query.start_pos);
+                if ( req.query.max_limit !== undefined )
+                        max_limit = Number(req.query.max_limit);
+                db.all('SELECT * FROM Rides LIMIT ' + max_limit + ' OFFSET ' + start_pos, function(err, rows) {
                         if (err) {
                                 return res.send({
                                         error_code: 'SERVER_ERROR',
@@ -106,7 +133,6 @@ module.exports = db => {
                                         message: 'Could not find any rides',
                                 });
                         }
-
                         res.send(rows);
                 });
         });

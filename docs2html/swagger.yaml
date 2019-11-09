@@ -19,8 +19,19 @@ schemes:
 paths:
   /rides:
     get:
-      summary: Fetch all Rides
+      summary: Fetch Rides 
       description: Returns all rides
+      parameters:
+        - in: query 
+          name: start_pos
+          schema:
+            type: integer
+          description: Fetch Rides starting from given start_pos
+        - in: query 
+          name: max_limit
+          schema:
+            type: integer
+          description: Limit the number of rides returned. Default 500
       responses:
         "200":
           description: successful operation
