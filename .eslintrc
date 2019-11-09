@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "wesbos"
+  ],
+  "rules": {
+    "no-unused-vars": 0,
+    "no-shadow": 0,
+    "global-require": 0,
+    "no-undef": 1,
+    "no-console": 1,
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "es5",
+        "singleQuote": true,
+        "printWidth": 120,
+        "tabWidth": 8,
+      }
+    ]
+  }
+}
+

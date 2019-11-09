@@ -7,22 +7,45 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha tests",
-    "doc" : "./generate_docs.sh",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "nyc mocha tests/*.test.js",
+    "doc": "./generate_docs.sh",
     "start": "node index.js"
   },
+  "pre-push": [
+    "lint",
+    "test"
+  ],
   "keywords": [
     "Xendit"
   ],
   "author": "Bo",
   "license": "ISC",
   "dependencies": {
+    "app-root-path": "^3.0.0",
     "body-parser": "^1.19.0",
     "express": "^4.16.4",
-    "sqlite3": "^4.0.6"
+    "morgan": "^1.9.1",
+    "sqlite3": "^4.0.6",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
+    "babel-eslint": "^9.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-config-wesbos": "0.0.19",
+    "eslint-plugin-html": "^5.0.5",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "git-pre-push": "0.0.5",
     "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
+    "prettier": "^1.19.0",
     "supertest": "^4.0.2"
   }
 }
