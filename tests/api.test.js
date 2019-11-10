@@ -98,7 +98,8 @@ describe('API tests', () => {
           driver_vehicle: 'V01',
         })
         .expect('Content-Type', 'application/json; charset=utf-8')
-        .expect(200, done);
+        .expect(200)
+        .expect({"error_code":"VALIDATION_ERROR","message":"Start latitude and longitude must be between -90 - 90 and -180 to 180 degrees respectively"}, done)
     });
   });
   describe('POST /rides', () => {
@@ -115,7 +116,8 @@ describe('API tests', () => {
           driver_vehicle: 'V01',
         })
         .expect('Content-Type', 'application/json; charset=utf-8')
-        .expect(200, done);
+        .expect(200)
+        .expect({"error_code":"VALIDATION_ERROR","message":"End latitude and longitude must be between -90 - 90 and -180 to 180 degrees respectively"}, done)
     });
   });
   describe('POST /rides', () => {
@@ -132,7 +134,8 @@ describe('API tests', () => {
           driver_vehicle: 'V01',
         })
         .expect('Content-Type', 'application/json; charset=utf-8')
-        .expect(200, done);
+        .expect(200)
+        .expect({"error_code":"VALIDATION_ERROR","message":"Start latitude and longitude must be between -90 - 90 and -180 to 180 degrees respectively"}, done)
     });
   });
   describe('POST /rides', () => {
@@ -140,7 +143,7 @@ describe('API tests', () => {
       request(app)
         .post('/rides')
         .send({
-          start_lat: -189,
+          start_lat: -19,
           start_long: 5,
           end_lat: 89,
           end_long: 5,
@@ -148,7 +151,8 @@ describe('API tests', () => {
           driver_vehicle: 'V01',
         })
         .expect('Content-Type', 'application/json; charset=utf-8')
-        .expect(200, done);
+        .expect(200)
+        .expect({"error_code":"VALIDATION_ERROR","message":"Rider name must be a non empty string"}, done)
     });
   });
   describe('POST /rides', () => {
@@ -156,7 +160,7 @@ describe('API tests', () => {
       request(app)
         .post('/rides')
         .send({
-          start_lat: -189,
+          start_lat: -19,
           start_long: 5,
           end_lat: 89,
           end_long: 5,
@@ -165,7 +169,8 @@ describe('API tests', () => {
           driver_vehicle: 'V01',
         })
         .expect('Content-Type', 'application/json; charset=utf-8')
-        .expect(200, done);
+        .expect(200)
+        .expect({"error_code":"VALIDATION_ERROR","message":"Rider name must be a non empty string"}, done)
     });
   });
   describe('POST /rides', () => {
@@ -173,7 +178,7 @@ describe('API tests', () => {
       request(app)
         .post('/rides')
         .send({
-          start_lat: -189,
+          start_lat: -19,
           start_long: 5,
           end_lat: 89,
           end_long: 5,
@@ -181,7 +186,8 @@ describe('API tests', () => {
           driver_vehicle: 'V01',
         })
         .expect('Content-Type', 'application/json; charset=utf-8')
-        .expect(200, done);
+        .expect(200)
+        .expect({"error_code":"VALIDATION_ERROR","message":"Driver name must be a non empty string"}, done)
     });
   });
   describe('POST /rides', () => {
@@ -189,7 +195,7 @@ describe('API tests', () => {
       request(app)
         .post('/rides')
         .send({
-          start_lat: -189,
+          start_lat: -19,
           start_long: 5,
           end_lat: 89,
           end_long: 5,
@@ -198,7 +204,8 @@ describe('API tests', () => {
           driver_vehicle: 'V01',
         })
         .expect('Content-Type', 'application/json; charset=utf-8')
-        .expect(200, done);
+        .expect(200)
+        .expect({"error_code":"VALIDATION_ERROR","message":"Driver name must be a non empty string"}, done)
     });
   });
   describe('POST /rides', () => {
@@ -206,7 +213,7 @@ describe('API tests', () => {
       request(app)
         .post('/rides')
         .send({
-          start_lat: -189,
+          start_lat: -19,
           start_long: 5,
           end_lat: 89,
           end_long: 5,
@@ -214,7 +221,8 @@ describe('API tests', () => {
           driver_name: 'D01',
         })
         .expect('Content-Type', 'application/json; charset=utf-8')
-        .expect(200, done);
+        .expect(200)
+        .expect({"error_code":"VALIDATION_ERROR","message":"Driver vehicle must be a non empty string"}, done)
     });
   });
 });
