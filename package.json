@@ -9,6 +9,7 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "test:load": "forever start --minUptime 3000 --spinSleepTime 2000 index.js &&  artillery run load-test.yaml",
     "test": "nyc mocha tests/*.test.js",
     "doc": "./generate_docs.sh",
     "start": "node index.js"
@@ -27,6 +28,7 @@
     "body-parser": "^1.19.0",
     "express": "^4.16.4",
     "express-sanitize-escape": "^1.1.0",
+    "forever": "^1.0.0",
     "morgan": "^1.9.1",
     "sql-injection": "0.0.6",
     "sqlite-async": "^1.0.12",

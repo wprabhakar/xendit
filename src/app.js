@@ -129,7 +129,7 @@ module.exports = db => {
   });
 
   app.get('/rides/:id', async (req, res) => {
-    const id = escape(req.params.id) ;
+    const id = escape(req.params.id);
     const sql = `SELECT * FROM Rides WHERE rideID=${id}`;
     executeSQL(db, sql, req, res);
   });
