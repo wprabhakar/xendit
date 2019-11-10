@@ -23,9 +23,12 @@
   "license": "ISC",
   "dependencies": {
     "app-root-path": "^3.0.0",
+    "assert": "^2.0.0",
     "body-parser": "^1.19.0",
     "express": "^4.16.4",
+    "express-sanitize-escape": "^1.1.0",
     "morgan": "^1.9.1",
+    "sql-injection": "0.0.6",
     "sqlite-async": "^1.0.12",
     "sqlite3": "^4.0.6",
     "supertest": "^4.0.2",

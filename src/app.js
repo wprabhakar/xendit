@@ -1,6 +1,5 @@
 const express = require('express');
 
-const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const logger = require('./config/winston');
 
@@ -19,11 +18,11 @@ executeSQL = async (db, sql, req, res) => {
     }
     return res.send(rows);
   } catch (error) {
-    logger.error(sql);
-    logger.error(error);
+    // logger.error(sql);
+    // logger.error(error);
     return res.send({
       error_code: 'SERVER_ERROR',
-      message: 'SQL Unknown error',
+      message: 'Unknown error',
     });
   }
 };
@@ -130,7 +129,8 @@ module.exports = db => {
   });
 
   app.get('/rides/:id', async (req, res) => {
-    const sql = `SELECT * FROM Rides WHERE rideID=${req.params.id}`;
+    const id = escape(req.params.id) ;
+    const sql = `SELECT * FROM Rides WHERE rideID=${id}`;
     executeSQL(db, sql, req, res);
   });
   return app;

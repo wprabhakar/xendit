@@ -3,6 +3,7 @@ const request = require('supertest');
 const sqlite3 = require('sqlite-async');
 
 const buildSchemas = require('../src/schemas');
+const assert = require('assert');
 
 let app = '';
 
@@ -80,7 +81,20 @@ describe('API tests', () => {
       request(app)
         .get('/rides/1')
         .expect('Content-Type', 'application/json; charset=utf-8')
-        .expect(200, done);
+        .expect(200)
+        .end(function(err, result) {
+          assert.equal(result.body[0].rideID, 1);
+          done();
+      });
+    });
+  });
+  describe('GET /rides/1 or rideid = 2', () => {
+    it('SQL Injection check', done => {
+      request(app)
+        .get('/rides/1 or rideid = 2')
+        .expect('Content-Type', 'application/json; charset=utf-8')
+        .expect(200)
+        .expect({"error_code":"SERVER_ERROR","message":"Unknown error"}, done)
     });
   });
 
