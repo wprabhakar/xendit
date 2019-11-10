@@ -1,5 +1,5 @@
-module.exports = db => {
-        const createRideTableSchema = `
+module.exports = async db => {
+  const createRideTableSchema = `
         CREATE TABLE Rides
         (
         rideID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -14,7 +14,10 @@ module.exports = db => {
         )
     `;
 
-        db.run(createRideTableSchema);
-
-        return db;
+  try {
+    await db.run(createRideTableSchema);
+    return db;
+  } catch (error) {
+    throw Error('Could not create table');
+  }
 };
